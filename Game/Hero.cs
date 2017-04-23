@@ -39,6 +39,7 @@ namespace Game
             set
             {
                 _condition = value;
+                check();
             }
         }
 
@@ -89,55 +90,53 @@ namespace Game
             throw new ArgumentException("Object is not a Hero");
         }
 
-        //состояние
         private void check()
         {
-            if (currentHealth == 0)
-            {
-                condition = Condition.Dead;
-            }
-            else if (1.0 * currentHealth / maxHealth < 0.1)
-            {
-                condition = Condition.Weakened;
-            }
-            else
-            {
-                condition = Condition.Normal;
-            }
+            if (condition != Condition.Poisoned || condition != Condition.Paralyzed || condition != Condition.Dead)
+                if (currentHealth == 0)
+                {
+                    condition = Condition.Dead;
+                }
+                else if (1.0 * currentHealth / maxHealth < 0.1)
+                {
+                    condition = Condition.Weakened;
+                }
+                else
+                {
+                    condition = Condition.Normal;
+                }
         }
+        //состояние
     }
 
     class Wizard : Hero
     {
         // поля
         private uint _maxMana;
-        private uint _currentMana;
+        private uint _сurrentMana;
 
-        //св-ва
-        public uint MaxMana { get { return _maxMana; } set { _maxMana = value; } }
+        public uint maxMana { get { return _maxMana; } set { _maxMana = value; } }
 
-        public uint CurrentMana { get { return _currentMana; } set { _currentMana = value; } }
+        public uint сurrentMana { get { return _сurrentMana; } set { _сurrentMana = value; } }
 
-        //методы
         public Wizard(string aname, Race arace, Gender agender) : base(aname, arace, agender)
         {
         }
 
         public void AddHealth(Hero obj)
         {
-            //int addingHealth = CurrentMana / 2;
-            if (this.CurrentMana / 2 + obj.currentHealth <= obj.maxHealth)
+            //int addingHealth = сurrentMana / 2;
+            if (this.сurrentMana / 2 + obj.currentHealth <= obj.maxHealth)
             {
-                obj.currentHealth += this.CurrentMana / 2;
-                this.CurrentMana -= this.CurrentMana / 2 * 2;
+                obj.currentHealth += this.сurrentMana / 2;
+                this.сurrentMana -= this.сurrentMana / 2 * 2;
             }
             else
             {
                 uint tmp = (obj.maxHealth - obj.currentHealth) / 2;
-                this.CurrentMana -= tmp * 2;
+                this.сurrentMana -= tmp * 2;
                 obj.currentHealth = obj.maxHealth;
             }
         }
     }
-
 }
