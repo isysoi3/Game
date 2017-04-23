@@ -50,7 +50,18 @@ namespace Game
 
         public uint maxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
 
-        public uint currentHealth { get { return _currentHealth; } set { _currentHealth = value; } }
+        public uint currentHealth
+        {
+            get
+            {
+                return _currentHealth;
+            }
+            set
+            {
+                _currentHealth = value;
+                check();
+            }
+        }
 
         public uint experience { get { return _experience; } set { _experience = value; } }
 
@@ -78,6 +89,21 @@ namespace Game
             throw new ArgumentException("Object is not a Hero");
         }
 
+        private void check()
+        {
+            if (currentHealth == 0)
+            {
+                condition = Condition.Dead;
+            }
+            else if (1.0 * currentHealth / maxHealth < 0.1)
+            {
+                condition = Condition.Weakened;
+            }
+            else
+            {
+                condition = Condition.Normal;
+            }
+        }
         //состояние
     }
 
