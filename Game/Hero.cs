@@ -5,25 +5,44 @@ using System.Text;
 
 namespace Game
 {
-    enum Gender { Male, Female };
-    enum Condition { Normal, Weakened, Sick, Poisoned, Paralyzed, Dead };
-    enum Race { Human, Gnome, Elf, Orc, Goblin };
-
     class Hero : IComparable
     {
-        private static uint nextID = 1;//не изменяющ
-        public string name { get; }//не изменяющ
-        public uint ID { get; }
-        public Condition condition;
-        public bool isSpeaking;
-        public bool isMoving;
-        public Race race { get; }//не изменяющ
-        public Gender gender { get; }//не изменяющ
-        public int age;
-        public int maxHealth;
-        public int currentHealth;
-        public int experience { get; set; }
+        // поля
+        private static uint nextID = 1;
+        private string _name;//не изменяющ
+        private uint _ID;//не изменяющ
+        private Condition _condition;
+        private bool isSpeaking;
+        private bool isMoving;
+        private Race _race;//не изменяющ
+        private Gender _gender;//не изменяющ
+        private uint _age;
+        private uint _maxHealth;
+        private int _currentHealth;
+        private uint _experience;
 
+        //св-ва  
+        public string name { get { return _name; } private set { _name = value; } }
+        public uint ID { get { return _ID; } private set { _ID = value; } }
+        public Condition condition
+        {
+            get
+            {
+                return _condition;
+            }
+            set
+            {
+                _condition = value;
+            }
+        }
+        public Race race { get { return _race; } set { _race = value; } }
+        public Gender gender { get { return _gender; } private set { _gender = value; } }
+        public uint age { get { return _age; } set { _age = value; } }
+        public uint maxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
+        public int currentHealth { get { return _currentHealth; } set { _currentHealth = value; } }
+        public uint experience { get { return _experience; } set { _experience = value; } }
+
+        //Методы
         public Hero(string aname, Race arace, Gender agender)
         {
             ID = nextID++;
@@ -45,7 +64,41 @@ namespace Game
                 return experience.CompareTo(h.experience);
             }
             throw new ArgumentException("Object is not a Hero");
+        }
+
+
+        //состояние
+    }
+
+
+    class Wizard : Hero
+    {
+        // поля
+        private uint _maxMana;
+        private int _currentMana;
+
+
+        public uint maxMana { get { return _maxMana; } set { _maxMana = value; } }
+        public int CurrentMana { get { return _currentMana; } set { _currentMana = value; } }
+
+        public Wizard(string aname, Race arace, Gender agender) : base(aname, arace, agender)
+        {
+        }
+
+        public void AddHealth()
+        {
+            int addingHealth = CurrentMana / 2;
+            if (addingHealth + currentHealth <= maxHealth)
+            {
+                currentHealth += addingHealth;
+                CurrentMana -= addingHealth * 2;
+            }
+            else
+            {
+
+            }
 
         }
+
     }
 }
