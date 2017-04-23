@@ -12,17 +12,17 @@ namespace Game
     class Hero : IComparable
     {
         private static uint nextID = 1;//не изменяющ
-        public string name { get; private set; }//не изменяющ
-        public uint ID { get; private set; }
+        public string name { get; }//не изменяющ
+        public uint ID { get; }
         public Condition condition;
         public bool isSpeaking;
         public bool isMoving;
-        public Race race { get; private set; }//не изменяющ
-        public Gender gender { get; private set; }//не изменяющ
+        public Race race { get; }//не изменяющ
+        public Gender gender { get; }//не изменяющ
         public int age;
         public int maxHealth;
         public int currentHealth;
-        public int experience { get; private set; }
+        public int experience { get; set; }
 
         public Hero(string aname, Race arace, Gender agender)
         {
@@ -32,15 +32,20 @@ namespace Game
             gender = agender;
         }
 
-        public Hero Compare(Hero a, Hero b)
-        {
-            return a.experience.CompareTo(b.experience);
-        }
-
         public override string ToString()
         {
-            return "Hero: " + name + " " + age + " " + race + " " + condition + " ";
+            return "Hero: " + name + " " + age + " " + race + " " + condition + " " + ID;
         }
 
+        public int CompareTo(object obj)
+        {
+            if (obj is Hero)
+            {
+                Hero h = (Hero)obj;
+                return experience.CompareTo(h.experience);
+            }
+            throw new ArgumentException("Object is not a Hero");
+
+        }
     }
 }
