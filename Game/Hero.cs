@@ -89,6 +89,7 @@ namespace Game
             throw new ArgumentException("Object is not a Hero");
         }
 
+        //состояние
         private void check()
         {
             if (currentHealth == 0)
@@ -104,7 +105,6 @@ namespace Game
                 condition = Condition.Normal;
             }
         }
-        //состояние
     }
 
     class Wizard : Hero
@@ -113,10 +113,12 @@ namespace Game
         private uint _maxMana;
         private uint _currentMana;
 
+        //св-ва
         public uint MaxMana { get { return _maxMana; } set { _maxMana = value; } }
 
         public uint CurrentMana { get { return _currentMana; } set { _currentMana = value; } }
 
+        //методы
         public Wizard(string aname, Race arace, Gender agender) : base(aname, arace, agender)
         {
         }
