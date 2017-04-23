@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Game
 {
+    enum Gender { Male, Female };
+    enum Condition { Normal, Weakened, Sick, Poisoned, Paralyzed, Dead };
+    enum Race { Human, Gnome, Elf, Orc, Goblin };
+
     class Hero : IComparable
     {
         // поля
@@ -18,12 +22,14 @@ namespace Game
         private Gender _gender;//не изменяющ
         private uint _age;
         private uint _maxHealth;
-        private int _currentHealth;
+        private uint _currentHealth;
         private uint _experience;
 
         //св-ва  
         public string name { get { return _name; } private set { _name = value; } }
+
         public uint ID { get { return _ID; } private set { _ID = value; } }
+
         public Condition condition
         {
             get
@@ -35,11 +41,17 @@ namespace Game
                 _condition = value;
             }
         }
+
         public Race race { get { return _race; } set { _race = value; } }
+
         public Gender gender { get { return _gender; } private set { _gender = value; } }
+
         public uint age { get { return _age; } set { _age = value; } }
+
         public uint maxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
-        public int currentHealth { get { return _currentHealth; } set { _currentHealth = value; } }
+
+        public uint currentHealth { get { return _currentHealth; } set { _currentHealth = value; } }
+
         public uint experience { get { return _experience; } set { _experience = value; } }
 
         //Методы
@@ -66,39 +78,38 @@ namespace Game
             throw new ArgumentException("Object is not a Hero");
         }
 
-
         //состояние
     }
-
 
     class Wizard : Hero
     {
         // поля
         private uint _maxMana;
-        private int _currentMana;
+        private uint _currentMana;
 
+        public uint MaxMana { get { return _maxMana; } set { _maxMana = value; } }
 
-        public uint maxMana { get { return _maxMana; } set { _maxMana = value; } }
-        public int CurrentMana { get { return _currentMana; } set { _currentMana = value; } }
+        public uint CurrentMana { get { return _currentMana; } set { _currentMana = value; } }
 
         public Wizard(string aname, Race arace, Gender agender) : base(aname, arace, agender)
         {
         }
 
-        public void AddHealth()
+        public void AddHealth(Hero obj)
         {
-            int addingHealth = CurrentMana / 2;
-            if (addingHealth + currentHealth <= maxHealth)
+            //int addingHealth = CurrentMana / 2;
+            if (this.CurrentMana / 2 + obj.currentHealth <= obj.maxHealth)
             {
-                currentHealth += addingHealth;
-                CurrentMana -= addingHealth * 2;
+                obj.currentHealth += this.CurrentMana / 2;
+                this.CurrentMana -= this.CurrentMana / 2 * 2;
             }
             else
             {
-
+                uint tmp = (obj.maxHealth - obj.currentHealth) / 2;
+                this.CurrentMana -= tmp * 2;
+                obj.currentHealth = obj.maxHealth;
             }
-
         }
-
     }
+
 }
