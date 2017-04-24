@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Game
 {
-    enum Gender { Male, Female };
+     enum Gender { Male, Female };
     enum Condition { Normal, Weakened, Sick, Poisoned, Paralyzed, Dead };
     enum Race { Human, Gnome, Elf, Orc, Goblin };
 
@@ -96,19 +96,19 @@ namespace Game
 
         private void CheckHealth()
         {
-            // if (condition != Condition.Poisoned || condition != Condition.Paralyzed || condition != Condition.Dead)
-            if (currentHealth == 0)
-            {
-                condition = Condition.Dead;
-            }
-            else if (1.0 * currentHealth / maxHealth < 0.1)
-            {
-                condition = Condition.Weakened;
-            }
-            else
-            {
-                condition = Condition.Normal;
-            }
+            if (condition != Condition.Poisoned || condition != Condition.Paralyzed || condition != Condition.Sick)
+                if (currentHealth == 0)
+                {
+                    condition = Condition.Dead;
+                }
+                else if (1.0 * currentHealth / maxHealth < 0.1)
+                {
+                    condition = Condition.Weakened;
+                }
+                else
+                {
+                    condition = Condition.Normal;
+                }
         }
         //состояние
 

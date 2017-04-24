@@ -15,7 +15,6 @@ namespace Game
 
     enum Bottle { Small = 10, Medium = 25, Large = 50 };
 
-
     abstract class Spell : IMagic
     {
         private uint _minMana;
@@ -76,80 +75,86 @@ namespace Game
 
     class Heal : Spell
     {
-        Heal()
+        public Heal()
         {
             minMana = 20;
         }
 
         public override bool DoMagic()
         {
-            if (сurrentMana > minMana)
-            {
-                tcondition = Condition.Normal;
-                this.сurrentMana -= minMana;
-            }
+            //if (сurrentMana > minMana)
+            //{
+            //    tcondition = Condition.Normal;
+            //    this.сurrentMana -= minMana;
+            //}
             return false;
         }
 
         public override bool DoMagic(Hero h, uint _strength)
         {
-            if (сurrentMana > minMana)
+            //исправить
+            if ((h as Wizard).сurrentMana >= minMana)
             {
-                h.condition = Condition.Normal;
-                this.сurrentMana -= minMana;
+                //h.condition = Condition.Normal;
+                h.currentHealth = h.currentHealth;
+                (h as Wizard).сurrentMana -= minMana;
             }
-            return false;
+            return true;
         }
     }
 
-    //class Antidote : Spell
-    //{
-    //    Antidote()
-    //    {
-    //        minMana = 30;
-    //    }
+    class Antidote : Spell
+    {
+        public Antidote()
+        {
+            minMana = 30;
+        }
 
-    //    public override bool DoMagic()
-    //    {
-    //        if (this.сurrentMana > minMana)
-    //        {
-    //            this.condition = Condition.Normal;
-    //            this.сurrentMana -= minMana;
-    //        }
-    //    }
+        public override bool DoMagic()
+        {
+            //if (this.сurrentMana > minMana)
+            //{
+            //    this.condition = Condition.Normal;
+            //    this.сurrentMana -= minMana;
+            //}
+            return true;
+        }
 
-    //    public override bool DoMagic(Hero h, uint _strength = 0)
-    //    {
-    //        if (this.сurrentMana > minMana)
-    //        {
-    //            h.condition = Condition.Normal;
-    //            this.сurrentMana -= minMana;
-    //        }
-    //    }
-    //}
+        public override bool DoMagic(Hero h, uint _strength = 0)
+        {
+            if ((h as Wizard).сurrentMana >= minMana)
+            {
+                h.condition = Condition.Normal;
+                h.currentHealth = h.currentHealth;
+                (h as Wizard).сurrentMana -= minMana;
+            }
+            return true;
+        }
+    }
 
-    //class Animate : Spell
-    //{
-    //    Animate()
-    //    {
-    //        minMana = 150;
-    //    }
+    class Animate : Spell
+    {
+        Animate()
+        {
+            minMana = 150;
+        }
 
-    //    public override bool DoMagic()
-    //    {
-    //        throw new NotImplementedException();
-    //    }
+        public override bool DoMagic()
+        {
+            throw new NotImplementedException();
+        }
 
-    //    public override bool DoMagic(Hero h, uint _strength = 0)
-    //    {
-    //        if (this.сurrentMana >= minMana)
-    //        {
-    //            h.condition = Condition.Normal;
-    //            h.currentHealth = 1;
-    //            this.сurrentMana -= minMana;
-    //        }
-    //    }
-    //}
+        public override bool DoMagic(Hero h, uint _strength = 0)
+        {
+            if ((h as Wizard).сurrentMana >= minMana && h.condition == Condition.Dead)
+            {
+                h.condition = Condition.Normal;
+                h.currentHealth = 1;
+                (h as Wizard).сurrentMana -= minMana;
+            }
+            return true;
+        }
+    }
 
     //class Armor : Spell
     //{
@@ -173,29 +178,32 @@ namespace Game
     //    }
     //}
 
-    //class TakeOff : Spell
-    //{
-    //    TakeOff()
-    //    {
-    //        minMana = 85;
-    //    }
+    class TakeOff : Spell
+    {
+        TakeOff()
+        {
+            minMana = 85;
+        }
 
-    //    public override bool DoMagic()
-    //    {
-    //        throw new NotImplementedException();
-    //    }
+        public override bool DoMagic()
+        {
+            throw new NotImplementedException();
+        }
 
-    //    public override bool DoMagic(Hero h, uint _strength = 0)
-    //    {
-    //        if (this.сurrentMana >= minMana)
-    //        {
-    //            //TODO
-    //            h.condition = Condition.Normal;
-    //            h.currentHealth = 1;
-    //            this.сurrentMana -= minMana;
-    //        }
-    //    }
-    //}
+        public override bool DoMagic(Hero h, uint _strength = 0)
+        {
+            if ((h as Wizard).сurrentMana >= minMana)
+            {
+                //TODO
+                h.condition = Condition.Normal;
+                h.currentHealth = 1;
+                (h as Wizard).сurrentMana -= minMana;
+            }
+            return true;
+        }
+    }
+
+
     /////////////////////////////////////////
 
     abstract class Artifact : IMagic
