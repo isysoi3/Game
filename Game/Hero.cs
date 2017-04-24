@@ -11,24 +11,37 @@ namespace Game
 
     class Hero : IComparable
     {
-        // поля
         private static uint nextID = 1;
-        private string _name;//не изменяющ
-        private uint _ID;//не изменяющ
+
+        // поля
+        private readonly uint _ID;//не изменяющ
+        private readonly string _name;//не изменяющ
         private Condition _condition;
         private bool isSpeaking;
         private bool isMoving;
-        private Race _race;//не изменяющ
-        private Gender _gender;//не изменяющ
+        private readonly Race _race;//не изменяющ
+        private readonly Gender _gender;//не изменяющ
         private uint _age;
         private uint _maxHealth;
         private uint _currentHealth;
         private uint _experience;
+        public List<Artifact> inventory = new List<Artifact>();
+
 
         //св-ва  
-        public string name { get { return _name; } private set { _name = value; } }
+        public string name { get { return _name; } }
 
-        public uint ID { get { return _ID; } private set { _ID = value; } }
+        public uint ID { get { return _ID; } }
+
+        public Race race { get { return _race; } }
+
+        public Gender gender { get { return _gender; } }
+
+        public uint age { get { return _age; } set { _age = value; } }
+
+        public uint maxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
+
+        public uint experience { get { return _experience; } set { _experience = value; } }
 
         public Condition condition
         {
@@ -38,18 +51,10 @@ namespace Game
             }
             set
             {
-                _condition = value;
-                check();
+                if (condition != Condition.Dead)
+                    _condition = value;
             }
         }
-
-        public Race race { get { return _race; } set { _race = value; } }
-
-        public Gender gender { get { return _gender; } private set { _gender = value; } }
-
-        public uint age { get { return _age; } set { _age = value; } }
-
-        public uint maxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
 
         public uint currentHealth
         {
@@ -60,21 +65,20 @@ namespace Game
             set
             {
                 _currentHealth = value;
-                check();
+                CheckHealth();
             }
         }
 
-        public uint experience { get { return _experience; } set { _experience = value; } }
-
-        //Методы
+        //конструктор
         public Hero(string aname, Race arace, Gender agender)
         {
-            ID = nextID++;
-            name = aname;
-            race = arace;
-            gender = agender;
+            _ID = nextID++;
+            _name = aname;
+            _race = arace;
+            _gender = agender;
         }
 
+        //Методы
         public override string ToString()
         {
             return "Hero: " + name + " " + age + " " + race + " " + condition + " " + ID;
@@ -90,23 +94,63 @@ namespace Game
             throw new ArgumentException("Object is not a Hero");
         }
 
-        private void check()
+        private void CheckHealth()
         {
-            if (condition != Condition.Poisoned || condition != Condition.Paralyzed || condition != Condition.Dead)
-                if (currentHealth == 0)
-                {
-                    condition = Condition.Dead;
-                }
-                else if (1.0 * currentHealth / maxHealth < 0.1)
-                {
-                    condition = Condition.Weakened;
-                }
-                else
-                {
-                    condition = Condition.Normal;
-                }
+            // if (condition != Condition.Poisoned || condition != Condition.Paralyzed || condition != Condition.Dead)
+            if (currentHealth == 0)
+            {
+                condition = Condition.Dead;
+            }
+            else if (1.0 * currentHealth / maxHealth < 0.1)
+            {
+                condition = Condition.Weakened;
+            }
+            else
+            {
+                condition = Condition.Normal;
+            }
         }
         //состояние
+
+        public void AddToInventory(Artifact a)
+        {
+            inventory.Add(a);
+        }
+
+        public void ThrowArtifact(Artifact a)
+        {
+            inventory.Remove(a);
+        }
+
+        public void TransferArtifact(Artifact a, Hero h)
+        {
+            inventory.Remove(a);
+            h.inventory.Add(a);
+        }
+
+        public void UseArtifact(Artifact a)
+        {
+            UseArtifact(a, this);
+            //if (inventory.Contains(a))
+            //{
+            //    if (a.DoMagic())
+            //        inventory.Remove(a);
+            //}
+            //else
+            //    Console.WriteLine("Не использован");
+        }
+
+        public void UseArtifact(Artifact a, Hero h, uint st = 0)
+        {
+            if (inventory.Contains(a))
+            {
+                if (!a.DoMagic(h, st))
+                    inventory.Remove(a);
+            }
+            else
+                Console.WriteLine("Не использован");
+        }
+
     }
 
     class Wizard : Hero
@@ -114,6 +158,7 @@ namespace Game
         // поля
         private uint _maxMana;
         private uint _сurrentMana;
+        private HashSet<Spell> spells = new HashSet<Spell>();
 
         public uint maxMana { get { return _maxMana; } set { _maxMana = value; } }
 
@@ -137,6 +182,33 @@ namespace Game
                 this.сurrentMana -= tmp * 2;
                 obj.currentHealth = obj.maxHealth;
             }
+        }
+
+        public void LearnSpel(Spell s)
+        {
+            if (!spells.Add(s))
+            {
+                Console.WriteLine("Уже есть");
+            }
+        }
+
+        public void ForgetSpel(Spell s)
+        {
+            if (!spells.Remove(s))
+            {
+                Console.WriteLine("Закленнания нет");
+            }
+
+        }
+
+        public void CastSpell(Spell s)
+        {
+            CastSpell(s, this);
+        }
+
+        public void CastSpell(Spell s, Hero h)
+        {
+            s.DoMagic(h);
         }
     }
 }

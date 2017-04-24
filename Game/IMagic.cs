@@ -8,16 +8,17 @@ namespace Game
 {
     interface IMagic
     {
-        void DoMagic();
-        void DoMagic(Hero h, uint _strength);
+        // a нужен ли этот метод?
+        bool DoMagic();
+        bool DoMagic(Hero h = null, uint _strength = 0);
     }
 
-    enum Bottle { Zero = 0, Small = 10, Medium = 25, Large = 50 };
+    enum Bottle { Small = 10, Medium = 25, Large = 50 };
 
 
     abstract class Spell : IMagic
     {
-        private uint minMana;
+        private uint _minMana;
         private bool needToPronounce;
         private bool needToMotion;
 
@@ -47,222 +48,243 @@ namespace Game
             }
         }
 
-        public uint MinMana
+        public uint minMana
         {
             get
             {
-                return minMana;
+                return _minMana;
             }
-
-            set
-            {
-                minMana = value;
-            }
+            set { _minMana = value; }
         }
 
-        abstract public void DoMagic();
-        abstract public void DoMagic(Hero h, uint _strength);
+        abstract public bool DoMagic();
+        abstract public bool DoMagic(Hero h, uint _strength = 0);
     }
 
-    class AddHealh : Spell
-    {
-        public override void DoMagic()
-        {
+    //class AddHealh : Spell
+    //{
+    //    public override bool DoMagic()
+    //    {
 
-        }
+    //    }
 
-        public override void DoMagic(Hero h, uint _strength)
-        {
+    //    public override bool DoMagic(Hero h, uint _strength)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
     class Heal : Spell
     {
         Heal()
         {
-            MinMana = 20;
+            minMana = 20;
         }
 
-        public override void DoMagic()
+        public override bool DoMagic()
         {
-            if (this.сurrentMana > MinMana)
+            if (сurrentMana > minMana)
             {
-                this.condition = Condition.Normal;
-                this.сurrentMana -= MinMana;
+                tcondition = Condition.Normal;
+                this.сurrentMana -= minMana;
             }
+            return false;
         }
 
-        public override void DoMagic(Hero h, uint _strength = 0)
+        public override bool DoMagic(Hero h, uint _strength)
         {
-            if (this.сurrentMana > MinMana)
-            {
-                h.condition = Condition.Normal;
-                this.сurrentMana -= MinMana;
-            }
-        }
-    }
-
-    class Antidote : Spell
-    {
-        Antidote()
-        {
-            MinMana = 30;
-        }
-
-        public override void DoMagic()
-        {
-            if (this.сurrentMana > MinMana)
-            {
-                this.condition = Condition.Normal;
-                this.сurrentMana -= MinMana;
-            }
-        }
-
-        public override void DoMagic(Hero h, uint _strength = 0)
-        {
-            if (this.сurrentMana > MinMana)
+            if (сurrentMana > minMana)
             {
                 h.condition = Condition.Normal;
-                this.сurrentMana -= MinMana;
+                this.сurrentMana -= minMana;
             }
+            return false;
         }
     }
 
-    class Animate : Spell
-    {
-        Animate()
-        {
-            MinMana = 150;
-        }
+    //class Antidote : Spell
+    //{
+    //    Antidote()
+    //    {
+    //        minMana = 30;
+    //    }
 
-        public override void DoMagic()
-        {
-            throw new NotImplementedException();
-        }
+    //    public override bool DoMagic()
+    //    {
+    //        if (this.сurrentMana > minMana)
+    //        {
+    //            this.condition = Condition.Normal;
+    //            this.сurrentMana -= minMana;
+    //        }
+    //    }
 
-        public override void DoMagic(Hero h, uint _strength = 0)
-        {
-            if (this.сurrentMana >= MinMana)
-            {
-                h.condition = Condition.Normal;
-                h.currentHealth = 1;
-                this.сurrentMana -= MinMana;
-            }
-        }
-    }
+    //    public override bool DoMagic(Hero h, uint _strength = 0)
+    //    {
+    //        if (this.сurrentMana > minMana)
+    //        {
+    //            h.condition = Condition.Normal;
+    //            this.сurrentMana -= minMana;
+    //        }
+    //    }
+    //}
 
-    class Armor : Spell
-    {
-        Armor()
-        {
-            MinMana = 50;
-        }
+    //class Animate : Spell
+    //{
+    //    Animate()
+    //    {
+    //        minMana = 150;
+    //    }
 
-        public override void DoMagic()
-        {
-            throw new NotImplementedException();
-        }
+    //    public override bool DoMagic()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public override void DoMagic(Hero h, uint _strength = 0)
-        {
-            if (this.сurrentMana >= MinMana)
-            {
-                //TODO
-                this.сurrentMana -= MinMana;
-            }
-        }
-    }
+    //    public override bool DoMagic(Hero h, uint _strength = 0)
+    //    {
+    //        if (this.сurrentMana >= minMana)
+    //        {
+    //            h.condition = Condition.Normal;
+    //            h.currentHealth = 1;
+    //            this.сurrentMana -= minMana;
+    //        }
+    //    }
+    //}
 
-    class TakeOff : Spell
-    {
-        TakeOff()
-        {
-            MinMana = 85;
-        }
+    //class Armor : Spell
+    //{
+    //    Armor()
+    //    {
+    //        minMana = 50;
+    //    }
 
-        public override void DoMagic()
-        {
-            throw new NotImplementedException();
-        }
+    //    public override bool DoMagic()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public override void DoMagic(Hero h, uint _strength = 0)
-        {
-            if (this.сurrentMana >= MinMana)
-            {
-                //TODO
-                h.condition = Condition.Normal;
-                h.currentHealth = 1;
-                this.сurrentMana -= MinMana;
-            }
-        }
-    }
+    //    public override bool DoMagic(Hero h, uint _strength = 0)
+    //    {
+    //        if (this.сurrentMana >= minMana)
+    //        {
+    //            //TODO
+    //            this.сurrentMana -= minMana;
+    //        }
+    //    }
+    //}
+
+    //class TakeOff : Spell
+    //{
+    //    TakeOff()
+    //    {
+    //        minMana = 85;
+    //    }
+
+    //    public override bool DoMagic()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    public override bool DoMagic(Hero h, uint _strength = 0)
+    //    {
+    //        if (this.сurrentMana >= minMana)
+    //        {
+    //            //TODO
+    //            h.condition = Condition.Normal;
+    //            h.currentHealth = 1;
+    //            this.сurrentMana -= minMana;
+    //        }
+    //    }
+    //}
     /////////////////////////////////////////
 
     abstract class Artifact : IMagic
     {
         private uint _strength;
-        private bool isRenewable;
+        private bool _isRenewable;
 
         public uint strength
         {
             get
             {
-                return strength;
+                return _strength;
             }
 
             set
             {
-                strength = value;
+                _strength = value;
             }
         }
 
-        abstract public void DoMagic();
+        public bool IsRenewable
+        {
+            get { return _isRenewable; }
+            set { _isRenewable = value; }
+        }
 
-        abstract public void DoMagic(Hero h, uint _strength);
+        abstract public bool DoMagic();
+
+        abstract public bool DoMagic(Hero h, uint _strength = 0);
     }
 
     class BottleWithLiveWater : Artifact
     {
-        public Bottle btBottle { set; private get; }
+        public readonly Bottle btBottle;
 
-        public override void DoMagic()
+        public BottleWithLiveWater(Bottle bt)
         {
-            if ((uint)btBottle + this.currentHealth >= this.maxHealth)
-                this.currentHealth = this.maxHealth;
-            else
-                this.currentHealth += (uint)btBottle;
-            btBottle = Bottle.Zero;
+            btBottle = bt;
+            IsRenewable = false;
         }
 
-        public override void DoMagic(Hero h, uint _strength)
+        public override bool DoMagic()
+        {
+            //if ((uint)btBottle + this.currentHealth >= this.maxHealth)
+            //    this.currentHealth = this.maxHealth;
+            //else
+            //    this.currentHealth += (uint)btBottle;
+            //btBottle = Bottle.Zero;\
+            return IsRenewable;
+        }
+
+        public override bool DoMagic(Hero h, uint _strength)
         {
             if ((uint)btBottle + h.currentHealth >= h.maxHealth)
                 h.currentHealth = h.maxHealth;
             else
                 h.currentHealth += (uint)btBottle;
-            btBottle = Bottle.Zero;
+            return IsRenewable;
         }
     }
 
     class BottleWithDeadWater : Artifact
     {
-        public Bottle btBottle { set; private get; }
+        public readonly Bottle btBottle;
 
-        public override void DoMagic()
+        public BottleWithDeadWater(Bottle bt)
         {
-            if (this is Wizard)
-            {
-                da(this as Wizard);
-            }
+            btBottle = bt;
+            IsRenewable = false;
         }
 
-        public override void DoMagic(Hero h, uint _strength)
+        public override bool DoMagic()
+        {
+            //if (this is Wizard)
+            //{
+            //    da(this as Wizard);
+            //}
+            return IsRenewable;
+        }
+
+        public override bool DoMagic(Hero h, uint _strength)
         {
             if (h is Wizard)
             {
                 da(h as Wizard);
+                return IsRenewable;
             }
+
+            return true;
         }
 
         private void da(Wizard w)
@@ -271,76 +293,119 @@ namespace Game
                 w.сurrentMana = w.maxMana;
             else
                 w.сurrentMana += (uint)btBottle;
-            btBottle = Bottle.Zero;
         }
     }
 
     class Staff : Artifact
     {
-        Staff(uint s)
+        public Staff(uint s)
         {
             strength = s;
+            IsRenewable = true;
         }
 
-        public override void DoMagic()
+        public override bool DoMagic()
         {
             throw new NotImplementedException();
         }
 
-        public override void DoMagic(Hero h, uint _strength)
+        public override bool DoMagic(Hero h, uint st)
         {
             //проерка на жизни, мощность и использывани
             if (strength > 0)
             {
-                h.currentHealth -= _strength;
-                strength -= _strength;
+                if (h.currentHealth > st)
+                {
+                    h.currentHealth -= st;
+                }
+                else
+                {
+                    h.currentHealth = 0;
+                }
+                if (st < strength)
+                    strength -= st;
+                else
+                    strength = 0;
             }
+            return IsRenewable;
         }
     }
 
     class Decoction : Artifact
     {
-        public override void DoMagic()
+        public Decoction()
+        {
+            IsRenewable = false;
+        }
+
+        public override bool DoMagic()
         {
             throw new NotImplementedException();
         }
 
-        public override void DoMagic(Hero h, uint _strength)
+        public override bool DoMagic(Hero h, uint _strength)
         {
-            h.condition = Condition.Normal;
+            // испарвить состояния
+            //h.condition = Condition.Normal;
+            if (h.condition == Condition.Poisoned)
+                h.currentHealth = h.currentHealth;
+            return IsRenewable;
         }
     }
 
     class PoisonousSaliva : Artifact
     {
-        PoisonousSaliva(uint s)
+        public PoisonousSaliva(uint s)
         {
             strength = s;
+            IsRenewable = true;
         }
 
-        public override void DoMagic()
+        public override bool DoMagic()
         {
             throw new NotImplementedException();
         }
 
-        public override void DoMagic(Hero h, uint _strength = 0)
+        public override bool DoMagic(Hero h, uint _st = 0)
         {
-            h.currentHealth -= strength;
-            h.condition = Condition.Poisoned;
+            if (h.condition == Condition.Normal || h.condition == Condition.Weakened)
+            {
+                if (h.currentHealth > strength)
+                {
+                    h.currentHealth -= strength;
+                    h.condition = Condition.Poisoned;
+                }
+                else
+                {
+                    h.currentHealth = 0;
+                    h.condition = Condition.Dead;
+                }
+            }
+            return IsRenewable;
         }
     }
 
     class BasiliskEye : Artifact
     {
-        public override void DoMagic()
+
+        public BasiliskEye()
+        {
+            IsRenewable = false;
+        }
+
+        public override bool DoMagic()
         {
             throw new NotImplementedException();
         }
 
-        public override void DoMagic(Hero h, uint _strength)
+        public override bool DoMagic(Hero h, uint _st)
         {
             if (h.condition != Condition.Dead)
+            {
                 h.condition = Condition.Paralyzed;
+                return IsRenewable;
+            }
+            return IsRenewable;
         }
     }
 }
