@@ -81,7 +81,7 @@ namespace Game
         //Методы
         public override string ToString()
         {
-            return "Hero: " + name + " " + age + " " + race + " " + condition + " " + ID;
+            return "Hero: " + name + " " + age + " " + race + " " + condition + " " + ID; // я бы выводила айди вначале 
         }
 
         public int CompareTo(object obj)
@@ -178,7 +178,7 @@ namespace Game
             }
             else
             {
-                uint tmp = (obj.maxHealth - obj.currentHealth) / 2;
+                uint tmp = (obj.maxHealth - obj.currentHealth) / 2;  // тут вроде как делить на два не надо.
                 this.сurrentMana -= tmp * 2;
                 obj.currentHealth = obj.maxHealth;
             }
@@ -196,7 +196,7 @@ namespace Game
         {
             if (!spells.Remove(s))
             {
-                Console.WriteLine("Закленнания нет");
+                Console.WriteLine("Заклинания нет");
             }
 
         }
