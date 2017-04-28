@@ -183,6 +183,11 @@ namespace Game
                 obj.currentHealth = obj.maxHealth;
             }
         }
+        
+        //public void AddHealth()
+        //{
+        //    AddHealth(this);
+        //}
 
         public void LearnSpel(Spell s)
         {
