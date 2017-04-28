@@ -9,7 +9,20 @@
     <Import_RootNamespace>Game</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Animate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Antidote.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Artifact.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BasiliskEye.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BottleWithDeadWater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BottleWithLiveWater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Decoction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Heal.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hero.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMagic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PoisonousSaliva.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Spell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Staff.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TakeOff.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Wizard.cs" />
   </ItemGroup>
 </Project>
