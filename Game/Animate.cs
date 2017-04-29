@@ -24,7 +24,7 @@ namespace Game
                 h.currentHealth = 1;
                 (h as Wizard).сurrentMana -= minMana;
             }
-            return true;
+            return true; // почему ретурн тру, даже если не оживил? мб тру в иф вставить, а тут фолс? и аналогично во всех заклинаниях; или я не правильно понимаю?
         }
     }
 }
