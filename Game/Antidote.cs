@@ -23,7 +23,7 @@ namespace Game
 
         public override bool DoMagic(Hero h, uint _strength = 0)
         {
-            if ((h as Wizard).сurrentMana >= minMana)
+            if ((h as Wizard).сurrentMana >= minMana /* && h.condition == Condition.Poisoned */)
             {
                 h.condition = Condition.Normal;
                 h.currentHealth = h.currentHealth;
