@@ -29,7 +29,7 @@ namespace Game
                 else
                 {
                     h.currentHealth = 0;
-                    h.condition = Condition.Dead;
+                    h.condition = Condition.Dead; // персонаж разве не должен сам умереть, если ему сделали здоровье 0?
                 }
             }
             return IsRenewable;
