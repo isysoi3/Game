@@ -51,8 +51,8 @@ namespace Game
             }
             set
             {
-                if (condition != Condition.Dead)
-                    _condition = value;
+                //if (condition != Condition.Dead)
+                _condition = value;
             }
         }
 
@@ -96,7 +96,7 @@ namespace Game
 
         private void CheckHealth()
         {
-            if (condition != Condition.Poisoned || condition != Condition.Paralyzed || condition != Condition.Sick)
+            if (condition != Condition.Poisoned || condition != Condition.Paralyzed || condition != Condition.Sick || condition != Condition.Dead)
                 if (currentHealth == 0)
                 {
                     condition = Condition.Dead;

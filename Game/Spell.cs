@@ -45,6 +45,8 @@ namespace Game
             set { _minMana = value; }
         }
 
+
+        abstract public bool DoMagic(Wizard w, Hero h = null, uint _strength = 0);
         abstract public bool DoMagic();
         abstract public bool DoMagic(Hero h, uint _strength = 0);
     }

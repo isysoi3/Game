@@ -6,30 +6,37 @@ namespace Game
 {
     class Antidote : Spell
     {
-        public Antidote()
+        class Antidote : Spell
         {
-            minMana = 30;
-        }
-
-        public override bool DoMagic()
-        {
-            //if (this.сurrentMana > minMana)
-            //{
-            //    this.condition = Condition.Normal;
-            //    this.сurrentMana -= minMana;
-            //}
-            return true;
-        }
-
-        public override bool DoMagic(Hero h, uint _strength = 0)
-        {
-            if ((h as Wizard).сurrentMana >= minMana /* && h.condition == Condition.Poisoned */)
+            public Antidote()
             {
-                h.condition = Condition.Normal;
-                h.currentHealth = h.currentHealth;
-                (h as Wizard).сurrentMana -= minMana;
+                minMana = 30;
             }
-            return true;
+
+            public override bool DoMagic()
+            {
+                //нужно с этими перегрузками решить
+                throw new NotImplementedException();
+            }
+
+            public override bool DoMagic(Wizard w, Hero h, uint _strength = 0)
+            {
+                if (w.сurrentMana >= minMana && h.condition == Condition.Poisoned)
+                {
+                    //h.condition = Condition.Normal;
+                    h.currentHealth = h.currentHealth;
+                    w.сurrentMana -= minMana;
+                    return true;
+                }
+                return false;
+            }
+
+
+            public override bool DoMagic(Hero h, uint _strength = 0)
+            {
+                //нужно с этими перегрузками решить
+                throw new NotImplementedException();
+            }
         }
     }
 }

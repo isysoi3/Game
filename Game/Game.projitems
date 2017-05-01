@@ -9,6 +9,7 @@
     <Import_RootNamespace>Game</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AddHealth.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Animate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Antidote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Artifact.cs" />

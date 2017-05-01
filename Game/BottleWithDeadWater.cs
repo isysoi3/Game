@@ -16,11 +16,8 @@ namespace Game
 
         public override bool DoMagic()
         {
-            //if (this is Wizard)
-            //{
-            //    da(this as Wizard);
-            //}
-            return IsRenewable;
+            //нужно с этими перегрузками решить
+            throw new NotImplementedException();
         }
 
         public override bool DoMagic(Hero h, uint _strength)

@@ -28,6 +28,11 @@ namespace Game
             set { _isRenewable = value; }
         }
 
+        public bool DoMagic(Wizard w, Hero h = null, uint _strength = 0)
+        {
+            return false;
+        }
+
         abstract public bool DoMagic();
 
         abstract public bool DoMagic(Hero h, uint _strength = 0);

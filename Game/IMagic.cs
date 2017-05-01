@@ -11,6 +11,7 @@ namespace Game
         // a нужен ли этот метод?
         bool DoMagic();
         bool DoMagic(Hero h = null, uint _strength = 0);
+        bool DoMagic(Wizard w, Hero h = null, uint _strength = 0);
     }
 
     enum Bottle { Small = 10, Medium = 25, Large = 50 };

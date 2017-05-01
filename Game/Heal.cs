@@ -6,31 +6,38 @@ namespace Game
 {
     class Heal : Spell
     {
+
+
         public Heal()
         {
             minMana = 20;
         }
 
+
+        public override bool DoMagic(Wizard w, Hero h, uint _strength)
+        {
+            if (h == null)
+                h = w as Hero;
+            if (w.сurrentMana >= minMana && h.condition == Condition.Sick)
+            {
+                h.condition = Condition.Normal;
+                //h.currentHealth = h.currentHealth;
+                w.сurrentMana -= minMana;
+                return true;
+            }
+            return false;
+        }
+
         public override bool DoMagic()
         {
-            //if (сurrentMana > minMana)
-            //{
-            //    tcondition = Condition.Normal;
-            //    this.сurrentMana -= minMana;
-            //}
-            return false;
+            //нужно с этими перегрузками решить
+            throw new NotImplementedException();
         }
 
         public override bool DoMagic(Hero h, uint _strength)
         {
-            //исправить
-            if ((h as Wizard).сurrentMana >= minMana /* && h.condition ==  Condition.Sick */)
-            {
-                //h.condition = Condition.Normal;
-                h.currentHealth = h.currentHealth;
-                (h as Wizard).сurrentMana -= minMana;
-            }
-            return true;
+            //нужно с этими перегрузками решить
+            throw new NotImplementedException();
         }
     }
 }

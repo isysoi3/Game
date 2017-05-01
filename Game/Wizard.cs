@@ -65,7 +65,8 @@ namespace Game
         public void CastSpell(Spell s, Hero h)
         {
             // исправить магию
-            s.DoMagic(h);
+            s.DoMagic(this, h);
         }
     }
+
 }

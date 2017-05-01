@@ -16,12 +16,8 @@ namespace Game
 
         public override bool DoMagic()
         {
-            //if ((uint)btBottle + this.currentHealth >= this.maxHealth)
-            //    this.currentHealth = this.maxHealth;
-            //else
-            //    this.currentHealth += (uint)btBottle;
-            //btBottle = Bottle.Zero;\
-            return IsRenewable;
+            //нужно с этими перегрузками решить
+            throw new NotImplementedException();
         }
 
         public override bool DoMagic(Hero h, uint _strength)
