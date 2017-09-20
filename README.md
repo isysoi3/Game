@@ -1,1 +1,1 @@
-# Game
+# Game [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3773f44492e64ae4a9f2482df2e090b7)](https://www.codacy.com/app/isysoi3/Game?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=isysoi3/Game&amp;utm_campaign=Badge_Grade)
